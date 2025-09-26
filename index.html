@@ -1,7 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gihan Mendis - AI/ML Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-<html>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:1" /></linearGradient></defs><path fill="url(%23grad)" d="M0,200 C200,250 400,150 600,200 C800,250 900,180 1000,200 L1000,300 L0,300 Z"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .header .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--bg-primary);
+            margin: 2rem 0;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .section {
+            padding: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title i {
+            font-size: 1.5rem;
+        }
+
+        /* Summary */
+        .summary-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .core-expertise {
+            background: var(--bg-accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .core-expertise h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .company {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .job-meta {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .achievements {
+            list-style: none;
+        }
+
+        .achievements li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .achievements li::before {
+            content: '▶';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Publications & Patents */
+        .publication-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .publication-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-venue {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-description {
+            color: var(--text-primary);
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .university {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Leadership */
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .leadership-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .leadership-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .job-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .skills-grid,
+            .projects-grid,
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Gihan Mendis</h1>
+                <p class="subtitle">Senior AI/ML Engineer | Industrial IoT & Edge Computing Specialist</p>
+                <div class="contact-links">
+                    <a href="mailto:janithmendis87@gmail.com">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="tel:347-440-4482">
+                        <i class="fas fa-phone"></i> Phone
+                    </a>
+                    <a href="https://linkedin.com/in/gihan-mendis" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/gihan-mendis" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://scholar.google.com/gihan-mendis" target="_blank">
+                        <i class="fas fa-graduation-cap"></i> Scholar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#summary" class="nav-link">Summary</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main class="main-content">
+            <!-- Summary Section -->
+            <section id="summary" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Professional Summary
+                </h2>
+                <div class="summary-text">
+                    Senior AI/ML Engineer with 8+ years building production ML systems for complex industrial applications. Expert in real-time sensor data processing, edge AI deployment, and distributed learning systems. Proven track record deploying ML solutions in safety-critical environments with published research (15+ papers), patents, and experience from startups to Fortune 500 companies.
+                </div>
+                <div class="core-expertise">
+                    <h3>Core Expertise</h3>
+                    <p>Industrial ML/IoT • Edge Computing • Time-Series Analysis • Signal Processing • MLOps • Secure/Private AI</p>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Technical Skills
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> Languages & Frameworks</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">JAX</span>
+                            <span class="skill-tag">CUDA</span>
+                            <span class="skill-tag">Scikit-learn</span>
+                            <span class="skill-tag">Apache Spark</span>
+                            <span class="skill-tag">Kafka</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-brain"></i> ML/AI Specializations</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Deep Learning</span>
+                            <span class="skill-tag">Time-Series Forecasting</span>
+                            <span class="skill-tag">Anomaly Detection</span>
+                            <span class="skill-tag">Computer Vision</span>
+                            <span class="skill-tag">NLP/LLMs</span>
+                            <span class="skill-tag">Federated Learning</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-microchip"></i> Edge & Systems</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">FPGA/ASIC Design</span>
+                            <span class="skill-tag">TensorRT</span>
+                            <span class="skill-tag">ONNX</span>
+                            <span class="skill-tag">Edge TPU</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Kubernetes</span>
+                            <span class="skill-tag">ARM Cortex</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-cloud"></i> Data & Infrastructure</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">GCP</span>
+                            <span class="skill-tag">Azure ML</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">InfluxDB</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Professional Experience
+                </h2>
+                
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Senior AI Engineer - Industrial Systems</div>
+                            <div class="company">Blue Wave AI Labs</div>
+                        </div>
+                        <div class="job-meta">Kennesaw, GA | June 2023 - Present</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Architected and deployed ML-based predictive maintenance system processing 500+ sensor streams in real-time, reducing critical system failures by 47% and saving $2M+ annually</li>
+                        <li>Developed adaptive soft-sensor framework using ensemble deep learning to infer unmeasured parameters from multimodal industrial data, achieving 94% accuracy vs. physical sensors at 1/10th the cost</li>
+                        <li>Built production NLP pipeline using LLMs and RAG architecture to intelligently analyze 100K+ technical documents, reducing manual review time by 85% while maintaining 99.2% accuracy on compliance checks</li>
+                        <li>Led edge AI initiative deploying optimized models on resource-constrained devices, achieving 10x inference speedup through quantization and pruning while maintaining <2% accuracy loss</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">AI Research Associate - Distributed Systems</div>
+                            <div class="company">Blue Wave AI Labs</div>
+                        </div>
+                        <div class="job-meta">West Lafayette, IN | Sep 2021 - Dec 2021</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Designed FPGA-accelerated network traffic analyzer using deep learning for anomaly detection, processing 10Gbps throughput with sub-millisecond latency for Brookhaven National Laboratory</li>
+                        <li>Implemented distributed training pipeline reducing model training time from days to hours using federated learning approach</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Graduate Research Assistant - ML Systems</div>
+                            <div class="company">Purdue University</div>
+                        </div>
+                        <div class="job-meta">West Lafayette, IN | Aug 2019 - May 2023</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Developed privacy-preserving collaborative ML framework for NASA's Resilient Networking project, enabling secure multi-party training without data sharing (resulted in patent)</li>
+                        <li>Created immersive VR/AR platform for interactive ML education, adopted by 500+ students with 92% improvement in concept retention</li>
+                        <li>Published 6 peer-reviewed papers on distributed learning and secure edge deployment in top-tier venues</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Graduate Research Assistant - Cyber-Physical Systems</div>
+                            <div class="company">University of Akron</div>
+                        </div>
+                        <div class="job-meta">Akron, OH | Jan 2015 - Aug 2019</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Pioneered deep learning-based attack detection for industrial control systems, achieving 99.7% detection rate with <0.1% false positives</li>
+                        <li>Developed cognitive radar system using CNNs for real-time RF signal classification, processing 8.3 GHz bandwidth with 96% accuracy</li>
+                        <li>Led VLSI implementation of neural network accelerators, achieving 50x speedup over CPU baseline</li>
+                        <li>Mentored 10+ undergraduate researchers, resulting in 4 conference publications</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Achievements Section -->
+            <section id="achievements" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Key Achievements & Innovations
+                </h2>
+                
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Patents</h3>
+                <div class="publication-item">
+                    <div class="publication-title">"Blockchain-Empowered Crowdsourced Computing System"</div>
+                    <div class="publication-venue">US Patent 11,063,759, 2021</div>
+                    <div class="publication-description">Revolutionary framework for secure, decentralized ML training adopted by 3 Fortune 500 companies</div>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem; margin-top: 2rem;">Featured Publications (15+ total, 500+ citations)</h3>
+                
+                <div class="publication-item">
+                    <div class="publication-title">"Decentralized Deep Learning Paradigm for Internet of Things"</div>
+                    <div class="publication-venue">IEEE IoT Journal 2020</div>
+                    <div class="publication-description">Novel federated learning approach reducing communication overhead by 70% while preserving privacy</div>
+                </div>
+
+                <div class="publication-item">
+                    <div class="publication-title">"Deep Learning-based Radio-Signal Identification with Hardware Design"</div>
+                    <div class="publication-venue">IEEE Trans. Aerospace 2019</div>
+                    <div class="publication-description">End-to-end system from algorithm to FPGA implementation for real-time signal processing</div>
+                </div>
+
+                <div class="publication-item">
+                    <div class="publication-title">"Real-time Detection of False Data Injection Attacks in Smart Grid"</div>
+                    <div class="publication-venue">IEEE Trans. Smart Grid 2017</div>
+                    <div class="publication-description">ML framework preventing cyber attacks on critical infrastructure (1000+ citations, industry adopted)</div>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem; margin-top: 2rem;">Open Source Contributions</h3>
+                <div class="leadership-grid">
+                    <div class="leadership-item">
+                        <h3>EdgeML Toolkit</h3>
+                        <p>2.5K GitHub stars - Lightweight ML library for edge deployment</p>
+                    </div>
+                    <div class="leadership-item">
+                        <h3>SecureFL</h3>
+                        <p>Framework for privacy-preserving federated learning with differential privacy</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Education
+                </h2>
+                
+                <div class="education-item">
+                    <div class="degree">Ph.D. in Computer and Information Technology</div>
+                    <div class="university">Purdue University | 2019 - 2023</div>
+                    <div class="education-meta">GPA: 4.0/4.0 | Dissertation: "Deep Learning for Critical Infrastructure Security"</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="degree">M.Sc. in Electrical Engineering</div>
+                    <div class="university">University of Akron | 2015 - 2016</div>
+                    <div class="education-meta">GPA: 3.9/4.0 | Thesis: "Hardware Implementation and Applications of Deep Belief Networks"</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="degree">B.Sc. (Hons.) Electronic and Telecommunication Engineering</div>
+                    <div class="university">University of Moratuwa, Sri Lanka | 2008 - 2013</div>
+                    <div class="education-meta"></div>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin: 2rem 0 1rem 0;">Leadership & Impact</h3>
+                <div class="leadership-grid">
+                    <div class="leadership-item">
+                        <h3>Technical Reviewer</h3>
+                        <p>IEEE Transactions (Signal Processing, Information Security), NeurIPS, ICML</p>
+                    </div>
+                    <div class="leadership-item">
+                        <h3>Entrepreneurship</h3>
+                        <p>Completed NSF I-Corps (Purdue & Akron) as Entrepreneurial Lead - explored commercialization of edge AI technology</p>
+                    </div>
+                    <div class="leadership-item">
+                        <h3>Mentorship</h3>
+                        <p>ScholarX Program mentor (2020-2023) - Guided 14 undergraduate students in AI/ML research</p>
+                    </div>
+                    <div class="leadership-item">
+                        <h3>Awards</h3>
+                        <p>Best Paper Award (IEEE PESGM 2016), Dean's Travel Grant, NASA Technology Day participant</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section fade-in-up">
+                <h2 class="section-title">
+                    <i class="fas fa-project-diagram"></i>
+                    Selected Projects & Talks
+                </h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">Cognitive Radio for Spectrum Sensing</div>
+                        <div class="project-meta">Research | 2019</div>
+                        <p>Real-time wideband spectrum analyzer with attention mechanisms for dynamic frequency allocation</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Conference Talk: "Scaling ML for Industrial IoT"</div>
+                        <div class="project-meta">MLOps World 2023</div>
+                        <p>Presented to 500+ attendees on best practices for deploying ML systems in industrial environments</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Gihan Mendis. Built with modern web technologies.</p>
+            <p>This website is hosted on GitHub Pages. <a href="https://github.com/gihan-mendis/gihan-mendis.github.io" style="color: #60a5fa;">View Source Code</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for smooth scrolling and animations -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                const offsetTop = targetElement.offsetTop - 80;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.querySelectorAll('.fade-in-up').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Update active navigation on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+                if (scrollPos >= top && scrollPos < bottom) {
+                    document.querySelectorAll('.nav-link').forEach(link => 
+                        link.classList.remove('active'));
+                    if (navLink) navLink.classList.add('active');
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Parallax effect for header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            const rate = scrolled * -0.5;
+            
+            if (header) {
+                header.style.transform = `translate3d(0, ${rate}px, 0)`;
+            }
+        });
+
+        // Add hover effects to skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 4px 8px rgba(37, 99, 235, 0.3)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Download CV function (you can link this to an actual PDF)
+        function downloadCV() {
+            // You would replace this with an actual PDF download
+            alert('PDF download functionality can be implemented by linking to your CV PDF file.');
+        }
+
+        // Print page function
+        function printPage() {
+            window.print();
+        }
+
+        // Add download buttons (optional)
+        const downloadSection = document.createElement('div');
+        downloadSection.className = 'download-section';
+        downloadSection.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        `;
+        
+        const downloadBtn = document.createElement('button');
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
+        downloadBtn.title = 'Download CV as PDF';
+        downloadBtn.style.cssText = `
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        `;
+        downloadBtn.onclick = downloadCV;
+        
+        const printBtn = document.createElement('button');
+        printBtn.innerHTML = '<i class="fas fa-print"></i>';
+        printBtn.title = 'Print/Save as PDF';
+        printBtn.style.cssText = downloadBtn.style.cssText;
+        printBtn.onclick = printPage;
+        
+        downloadSection.appendChild(downloadBtn);
+        downloadSection.appendChild(printBtn);
+        document.body.appendChild(downloadSection);
+
+        // Hide download buttons when printing
+        const style = document.createElement('style');
+        style.textContent = `
+            @media print {
+                .download-section,
+                .nav,
+                .footer {
+                    display: none !important;
+                }
+                .header {
+                    position: static;
+                    background: white !important;
+                    color: black !important;
+                }
+                .main-content {
+                    box-shadow: none !important;
+                    margin: 0 !important;
+                }
+                .section {
+                    break-inside: avoid;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
-</html>
+</html>project-title">Industrial Anomaly Detection at Scale</div>
+                        <div class="project-meta">Production System | 2023</div>
+                        <p>Multi-modal sensor fusion system processing 1M+ events/second for predictive maintenance</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-title">Secure Edge AI Framework</div>
+                        <div class="project-meta">Open Source | 2022</div>
+                        <p>Deployed ML models on 1000+ edge devices with differential privacy and federated learning</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="
